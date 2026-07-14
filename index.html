@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Финансовая грамотность с нуля</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* =========================================
+       CSS VARIABLES & RESET
+       ========================================= */
+    :root {
+      --color-bg-base: #070B14;
+      --color-surface: rgba(20, 34, 51, 0.6);
+      --color-surface-hover: rgba(20, 34, 51, 0.9);
+      --color-accent: #E5B869;
+      --color-accent-hover: #F4D084;
+      --color-text-main: #FFFFFF;
+      --color-text-muted: #A0AEC0;
+      --border-light: rgba(229, 184, 105, 0.15);
+      
+      /* Calculator Light Theme */
+      --calc-bg: #FFFFFF;
+      --calc-bg-alt: #FDFBF7;
+      --calc-text: #2D3748;
+      --calc-text-muted: #718096;
+      --calc-border: #E2E8F0;
+      
+      --font-heading: 'Montserrat', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      
+      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg-base);
+      color: var(--color-text-main);
+      line-height: 1.6;
+      background-image: radial-gradient(circle at 15% 50%, rgba(20, 34, 51, 0.4), transparent 25%),
+                        radial-gradient(circle at 85% 30%, rgba(229, 184, 105, 0.03), transparent 25%);
+    }
+
+    /* =========================================
+       TYPOGRAPHY
+       ========================================= */
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      margin-bottom: 16px;
+      color: var(--color-text-main);
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      margin-bottom: 16px;
+      color: var(--color-text-main);
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+
+    .fin-text-muted {
+      color: var(--color-text-muted);
+      font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+      font-weight: 300;
+    }
+
+    .fin-subtitle {
+      color: var(--color-accent);
+      font-weight: 700;
+      font-size: 0.875rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    /* =========================================
+       LAYOUT & COMPONENTS
+       ========================================= */
+    .fin-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 16px; /* Уменьшено для мобильных */
+    }
+    
+    @media (min-width: 768px) {
+      .fin-container {
+        padding: 0 24px;
+      }
+    }
+
+    .fin-section {
+      padding: 80px 0;
+      position: relative;
+    }
+    
+    @media (min-width: 768px) {
+      .fin-section {
+        padding: 100px 0;
+      }
+    }
+    
+    .fin-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-accent);
+      color: var(--color-bg-base);
+      padding: 16px 28px;
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      margin-top: 32px;
+      text-align: center;
+      width: 100%; /* На мобильных кнопка на всю ширину */
+    }
+    
+    @media (min-width: 768px) {
+        .fin-btn {
+          padding: 18px 40px;
+          font-size: 1rem;
+          width: auto;
+        }
+    }
+
+    .fin-btn:hover {
+      background-color: var(--color-accent-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(229, 184, 105, 0.25);
+    }
+
+    /* =========================================
+       HEADER & MODALS
+       ========================================= */
+    .fin-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(7, 11, 20, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-light);
+      padding: 16px;
+      display: flex;
+      justify-content: flex-start;
+      gap: 20px;
+      transition: all 0.3s ease;
+      overflow-x: auto; /* Горизонтальный скролл на мобильных */
+      -webkit-overflow-scrolling: touch; /* Плавный скролл iOS */
+      scrollbar-width: none; /* Прячем скроллбар в Firefox */
+    }
+    
+    .fin-header::-webkit-scrollbar {
+      display: none; /* Прячем скроллбар в Chrome/Safari */
+    }
+    
+    @media (min-width: 768px) {
+      .fin-header {
+        justify-content: center;
+        gap: 32px;
+        padding: 16px 24px;
+        overflow-x: visible;
+      }
+    }
+    
+    .fin-nav-btn {
+      background: none;
+      border: none;
+      color: var(--color-text-main);
+      font-family: var(--font-body);
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      position: relative;
+      text-decoration: none;
+      white-space: nowrap; /* Чтобы текст не переносился на телефонах */
+      flex-shrink: 0; /* Чтобы кнопки не сжимались при скролле */
+    }
+    
+    @media (min-width: 768px) {
+      .fin-nav-btn { font-size: 0.95rem; }
+    }
+
+    .fin-nav-btn:hover { color: var(--color-accent); }
+    
+    .fin-nav-btn::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 2px;
+      background-color: var(--color-accent); transition: var(--transition-smooth);
+    }
+    .fin-nav-btn:hover::after { width: 100%; }
+
+    .fin-modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(8px);
+      z-index: 2000; display: flex; justify-content: center; align-items: center;
+      opacity: 0; visibility: hidden; transition: var(--transition-smooth);
+      padding: 20px;
+    }
+
+    .fin-modal-overlay.active { opacity: 1; visibility: visible; }
+
+    .fin-modal {
+      background: var(--color-bg-base); border: 1px solid var(--border-light);
+      border-radius: 16px; padding: 30px 20px; max-width: 600px; width: 100%;
+      position: relative; transform: translateY(30px) scale(0.95);
+      transition: var(--transition-smooth); max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    }
+    
+    @media (min-width: 768px) {
+      .fin-modal { padding: 40px; }
+    }
+
+    .fin-modal-overlay.active .fin-modal { transform: translateY(0) scale(1); }
+
+    .fin-modal-close {
+      position: absolute; top: 10px; right: 10px; background: rgba(255,255,255,0.05);
+      border: none; color: var(--color-text-main); width: 32px; height: 32px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.2rem; transition: var(--transition-smooth); z-index: 10;
+    }
+    
+    .fin-modal-close:hover { background: var(--color-accent); color: var(--color-bg-base); }
+
+    .fin-modal-content h3 { font-size: 1.3rem; margin-bottom: 20px; color: var(--color-text-main); }
+    @media (min-width: 768px) { .fin-modal-content h3 { font-size: 1.5rem; } }
+
+    .fin-modal-list { list-style: none; margin-top: 16px; }
+    .fin-modal-list li { position: relative; padding-left: 24px; margin-bottom: 12px; color: var(--color-text-muted); }
+    .fin-modal-list li::before { content: '•'; position: absolute; left: 0; color: var(--color-accent); font-size: 1.2rem; line-height: 1; }
+    
+    .fin-service-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .fin-service-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .fin-service-item h4 { color: var(--color-accent); margin-bottom: 8px; font-size: 1.1rem; }
+
+    /* =========================================
+       SECTIONS
+       ========================================= */
+    /* Hero */
+    .fin-hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh; /* На мобильных на весь экран */
+      gap: 40px;
+      padding-top: 100px;
+    }
+    
+    @media (min-width: 992px) {
+       .fin-hero {
+         flex-direction: row;
+         min-height: 90vh;
+         gap: 60px;
+         padding-top: 140px;
+       }
+    }
+    
+    .fin-hero-content { flex: 1.2; z-index: 2; width: 100%; }
+    .fin-hero-visual { 
+      flex: 1; 
+      position: relative; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .fin-basics-list { margin-top: 30px; display: flex; flex-direction: column; gap: 20px; }
+    @media (min-width: 768px) { .fin-basics-list { margin-top: 40px; } }
+    
+    .fin-basic-item { display: flex; align-items: flex-start; gap: 16px; }
+    .fin-basic-icon { color: var(--color-accent); flex-shrink: 0; }
+    .fin-basic-title {
+      color: var(--color-text-main); font-weight: 500; font-size: 0.95rem;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    @media (min-width: 768px) { .fin-basic-title { font-size: 1.1rem; } }
+
+    /* =========================================
+       CAROUSELS
+       ========================================= */
+    .fin-carousel-wrapper { position: relative; width: 100%; margin-top: 30px; }
+    @media (min-width: 768px) { .fin-carousel-wrapper { margin-top: 40px; } }
+    
+    .fin-carousel-track {
+      display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory;
+      scrollbar-width: none; padding-bottom: 20px; scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch; /* Плавный скролл iOS */
+    }
+    @media (min-width: 768px) { .fin-carousel-track { gap: 24px; } }
+    .fin-carousel-track::-webkit-scrollbar { display: none; }
+    
+    .fin-carousel-slide {
+      flex: 0 0 85%; /* На смартфонах карточка занимает 85% ширины, чтобы было видно край следующей */
+      scroll-snap-align: center;
+      background: var(--color-surface); border: 1px solid var(--border-light);
+      border-radius: 16px; padding: 24px; display: flex; flex-direction: column;
+      transition: var(--transition-smooth);
+    }
+    
+    @media (min-width: 768px) {
+       .fin-carousel-slide { flex: 0 0 calc(50% - 12px); scroll-snap-align: start; padding: 32px; }
+    }
+    @media (min-width: 992px) {
+       .fin-carousel-slide { flex: 0 0 calc(33.333% - 16px); }
+    }
+    
+    .fin-carousel-slide:hover {
+      background: var(--color-surface-hover); border-color: rgba(229, 184, 105, 0.5);
+      transform: translateY(-5px);
+    }
+    
+    /* Carousel Arrows */
+    .fin-carousel-btn {
+      display: none; /* Скрываем стрелки на мобильных, управляем свайпом */
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: var(--color-accent); color: var(--color-bg-base);
+      border: none; border-radius: 50%; width: 48px; height: 48px;
+      cursor: pointer; z-index: 10; align-items: center; justify-content: center;
+      transition: var(--transition-smooth); box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+    
+    @media (min-width: 768px) { .fin-carousel-btn { display: flex; } }
+    
+    .fin-carousel-btn:hover { background: var(--color-accent-hover); transform: translateY(-50%) scale(1.1); }
+    .fin-carousel-btn.prev { left: -24px; }
+    .fin-carousel-btn.next { right: -24px; }
+    
+    /* Services Specific */
+    .service-pain { font-style: italic; color: var(--color-accent); margin-bottom: 16px; font-size: 0.95rem; }
+    .service-includes { margin-bottom: 16px; font-size: 0.95rem; color: var(--color-text-muted); }
+    .service-result { color: var(--color-text-main); font-weight: 500; margin-bottom: 24px; font-size: 0.95rem; border-left: 3px solid var(--color-accent); padding-left: 12px;}
+    .service-btn { margin-top: auto; width: 100%; text-align: center; font-size: 0.9rem; padding: 14px 20px; }
+
+    /* =========================================
+       CALCULATOR
+       ========================================= */
+    .calc-wrapper {
+      background-color: var(--calc-bg-alt); border-radius: 24px;
+      padding: 24px 16px; color: var(--calc-text);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4); max-width: 800px;
+      margin: 0 auto; position: relative; overflow: hidden;
+    }
+    @media (min-width: 768px) { .calc-wrapper { padding: 40px; } }
+    
+    .calc-wrapper h2, .calc-wrapper h3, .calc-wrapper h4 { color: var(--calc-text); }
+
+    .calc-step { display: none; animation: fadeIn 0.4s ease forwards; }
+    .calc-step.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .calc-progress-container {
+      width: 100%; height: 6px; background: var(--calc-border);
+      border-radius: 4px; margin-bottom: 20px; overflow: hidden;
+    }
+    @media (min-width: 768px) { .calc-progress-container { margin-bottom: 30px; } }
+    
+    .calc-progress-bar { height: 100%; background: var(--color-accent); width: 0%; transition: width 0.4s ease; }
+
+    .calc-option {
+      border: 2px solid var(--calc-border); border-radius: 12px;
+      padding: 14px 16px; margin-bottom: 12px; cursor: pointer;
+      transition: var(--transition-smooth); background: var(--calc-bg);
+      font-weight: 500; color: var(--calc-text); display: flex; align-items: center; font-size: 0.95rem;
+    }
+    @media (min-width: 768px) { .calc-option { padding: 16px 20px; font-size: 1rem; } }
+    
+    .calc-option:hover { border-color: var(--color-accent); background: #FFFDF5; }
+    .calc-option.selected { border-color: var(--color-accent); background: #FFFDF5; box-shadow: 0 4px 10px rgba(229, 184, 105, 0.15); }
+    
+    .calc-nav { display: flex; justify-content: space-between; margin-top: 20px; align-items: center; }
+    @media (min-width: 768px) { .calc-nav { margin-top: 30px; } }
+    
+    .calc-btn-back {
+      background: none; border: none; color: var(--calc-text-muted); cursor: pointer;
+      font-weight: 500; font-family: var(--font-body); font-size: 0.9rem; padding: 10px 0;
+      transition: var(--transition-smooth);
+    }
+    @media (min-width: 768px) { .calc-btn-back { font-size: 0.95rem; } }
+    .calc-btn-back:hover { color: var(--calc-text); }
+
+    .calc-result-box { text-align: center; padding-bottom: 24px; border-bottom: 1px solid var(--calc-border); margin-bottom: 24px; }
+    .calc-index-number {
+      font-size: 3rem; font-family: var(--font-heading); font-weight: 900;
+      color: var(--color-accent); line-height: 1; margin: 16px 0;
+    }
+    @media (min-width: 768px) { .calc-index-number { font-size: 4rem; } }
+    
+    .calc-zones-list { list-style: none; text-align: left; margin-top: 12px; }
+    .calc-zones-list li {
+      padding-left: 24px; position: relative; margin-bottom: 8px;
+      color: var(--calc-text); font-weight: 500; font-size: 0.95rem;
+    }
+    @media (min-width: 768px) { .calc-zones-list li { font-size: 1rem; } }
+    .calc-zones-list li::before { content: '✓'; position: absolute; left: 0; color: var(--color-accent); font-weight: bold; }
+
+    /* Form Section */
+    .calc-form-container {
+      margin-top: 30px; background: var(--calc-bg); padding: 20px;
+      border-radius: 16px; border: 1px solid var(--calc-border);
+    }
+    @media (min-width: 768px) { .calc-form-container { padding: 24px; } }
+    
+    .calc-form-container .fin-input { color: var(--calc-text); border-bottom-color: var(--calc-border); }
+    .calc-form-container .fin-input::placeholder { color: var(--calc-text-muted); }
+    .calc-form-container .fin-input:focus { border-bottom-color: var(--color-accent); }
+    
+    .calc-disclaimer { font-size: 0.7rem; color: var(--calc-text-muted); text-align: center; margin-top: 20px; line-height: 1.4; }
+    @media (min-width: 768px) { .calc-disclaimer { font-size: 0.75rem; } }
+
+    .fin-form-wrapper { background: rgba(7, 11, 20, 0.5); padding: 30px 20px; border-radius: 16px; width: 100%; }
+    @media (min-width: 768px) { .fin-form-wrapper { padding: 40px; } }
+    
+    .fin-form-group { position: relative; margin-bottom: 24px; }
+    @media (min-width: 768px) { .fin-form-group { margin-bottom: 32px; } }
+    
+    .fin-input {
+      width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.2);
+      color: var(--color-text-main); font-family: var(--font-body); font-size: 1rem;
+      padding: 12px 0; outline: none; transition: var(--transition-smooth); border-radius: 0;
+    }
+    .fin-input:focus { border-bottom-color: var(--color-accent); }
+    .fin-form-success { display: none; color: #4CAF50; margin-top: 20px; font-weight: 500; text-align: center; }
+
+    /* Footer Text */
+    .fin-footer { text-align: center; padding: 40px 0; margin-top: 40px; }
+
+    /* Animations */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+
+    /* Financial laboratory */
+    .lab-intro { max-width: 760px; margin: 0 auto 36px; text-align: center; }
+    .lab-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .lab-card { background: var(--color-surface); border: 1px solid var(--border-light); border-radius: 16px; padding: 24px; }
+    .lab-card h3 { color: var(--color-text-main); font-size: 1.05rem; }
+    .lab-field { margin-top: 16px; }
+    .lab-field label { display: block; color: var(--color-text-muted); font-size: .82rem; margin-bottom: 6px; }
+    .lab-input { width: 100%; border: 1px solid rgba(255,255,255,.16); border-radius: 8px; background: rgba(255,255,255,.05); color: var(--color-text-main); padding: 12px; font: inherit; }
+    .lab-input:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+    .lab-result { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--border-light); }
+    .lab-result strong { display: block; color: var(--color-accent); font-family: var(--font-heading); font-size: 1.35rem; margin: 5px 0; }
+    .lab-result p { color: var(--color-text-muted); font-size: .86rem; }
+    .lab-note { margin-top: 28px; color: var(--color-text-muted); font-size: .78rem; text-align: center; }
+    .contact-alternative { text-align: center; margin-top: 18px; }
+    .contact-alternative a { color: var(--color-accent); }
+    .hp-field { position: absolute; left: -9999px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .hero-actions .fin-btn { margin-top: 0; }
+    .fin-btn-secondary { background: transparent; color: var(--color-accent); border: 1px solid var(--color-accent); }
+    .service-list { list-style: none; margin: 14px 0 18px; color: var(--color-text-muted); font-size: .88rem; }
+    .service-list li { position: relative; padding-left: 18px; margin-bottom: 7px; }
+    .service-list li::before { content: '✓'; position: absolute; left: 0; color: var(--color-accent); }
+    .service-price { color: var(--color-accent); font-family: var(--font-heading); font-size: 1.15rem; margin: 12px 0; }
+    .lab-explanation { max-width: 900px; margin: 40px auto 0; padding: 28px; border-left: 3px solid var(--color-accent); background: var(--color-surface); border-radius: 0 12px 12px 0; }
+    .lab-explanation h3 { color: var(--color-text-main); }
+    .consent-row { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0 4px; color: var(--color-text-muted); font-size: .78rem; line-height: 1.45; }
+    .consent-row input { margin-top: 3px; flex: 0 0 auto; accent-color: var(--color-accent); }
+    .privacy-link { appearance: none; border: 0; padding: 0; background: none; color: var(--color-accent); font: inherit; text-decoration: underline; cursor: pointer; }
+    .privacy-copy h4 { margin: 22px 0 8px; color: var(--color-accent); }
+    .privacy-copy p, .privacy-copy li { color: var(--color-text-muted); font-size: .88rem; }
+    .privacy-copy ul { padding-left: 20px; }
+    @media (max-width: 991px) { .lab-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .hero-actions { flex-direction: column; } .hero-actions .fin-btn { width: 100%; } }
+  </style>
+</head>
+<body>
+
+  <header class="fin-header">
+    <button class="fin-nav-btn" data-modal="modal-trust">Почему мне можно доверять</button>
+    <button class="fin-nav-btn" data-modal="modal-audience">Для кого мои услуги</button>
+    <button class="fin-nav-btn" data-modal="modal-results">Что вы получите</button>
+    <button class="fin-nav-btn" data-modal="modal-services">Услуги</button>
+    <a href="#lab-section" class="fin-nav-btn">Финансовая лаборатория</a>
+    <a href="#calculator-section" class="fin-nav-btn">Маршрут</a>
+  </header>
+
+  <section class="fin-section fin-hero fin-container">
+    <div class="fin-hero-content reveal">
+      <span class="fin-subtitle">Знания - План - Дисциплина - Свобода</span>
+      <h1>От финансового порядка — к уверенности и капиталу</h1>
+      <p class="fin-text-muted" style="max-width: 600px; margin-bottom: 30px;">
+        Помогаю семьям и специалистам разобраться в личных финансах, создать резерв, рассчитать важные цели и построить персональный маршрут к капиталу.
+      </p>
+
+      <div class="fin-basics-list">
+        <div class="fin-basic-item">
+          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          <div>
+            <div class="fin-basic-title">Кандидат экономических наук</div>
+          </div>
+        </div>
+        <div class="fin-basic-item">
+          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          <div>
+            <div class="fin-basic-title">Преподаватель, доцент РЭУ им. Г. В. Плеханова</div>
+          </div>
+        </div>
+        <div class="fin-basic-item">
+          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          <div>
+            <div class="fin-basic-title">Финансовый советник</div>
+          </div>
+        </div>
+        <div class="fin-basic-item">
+          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <div>
+            <div class="fin-basic-title">Практический подход без сложных терминов</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-actions">
+        <a href="#calculator-section" class="fin-btn">Проверить финансовый маршрут</a>
+        <a href="#form-section" class="fin-btn fin-btn-secondary">Записаться на знакомство</a>
+      </div>
+    </div>
+
+    <div class="fin-hero-visual reveal delay-2">
+      <a href="https://yapx.ru/image/d7GrD" title="Изображение загружено на фотохостинг yapx.ru" target="_blank" style="display: block; width: 100%; max-width: 450px; margin: 0 auto;">
+        <img src="https://i.yapx.ru/d7GrD.png" alt="Смотреть на фотохостинг сайте yapx.ru" 
+             style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 40px rgba(229, 184, 105, 0.15); transition: transform 0.4s ease;">
+      </a>
+    </div>
+  </section>
+
+  <section class="fin-section fin-container">
+    <div class="reveal">
+      <h2 style="text-align: center;">Как проходит работа со мной</h2>
+      <p class="fin-text-muted" style="text-align: center; max-width: 800px; margin: 0 auto;">Вы получаете не общие советы, а понятную систему действий: что делать сейчас, что изменить, куда двигаться и как контролировать результат.</p>
+    </div>
+    
+    <div class="fin-carousel-wrapper reveal delay-2">
+      <button class="fin-carousel-btn prev"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="fin-carousel-track">
+        
+        <div class="fin-carousel-slide">
+          <div style="font-family: var(--font-heading); font-size: 3rem; color: rgba(229, 184, 105, 0.15); line-height: 1; margin-bottom: 16px;">01</div>
+          <h3 style="color: var(--color-text-main);">Знакомство и запрос</h3>
+          <p class="fin-text-muted">Вы рассказываете о своей ситуации, целях, доходах, тревогах и ожиданиях.</p>
+        </div>
+        
+        <div class="fin-carousel-slide">
+          <div style="font-family: var(--font-heading); font-size: 3rem; color: rgba(229, 184, 105, 0.15); line-height: 1; margin-bottom: 16px;">02</div>
+          <h3 style="color: var(--color-text-main);">Финансовый анализ</h3>
+          <p class="fin-text-muted">Я анализирую вашу текущую картину: доходы, расходы, обязательства, активы, резервы и риски.</p>
+        </div>
+
+        <div class="fin-carousel-slide">
+          <div style="font-family: var(--font-heading); font-size: 3rem; color: rgba(229, 184, 105, 0.15); line-height: 1; margin-bottom: 16px;">03</div>
+          <h3 style="color: var(--color-text-main);">Финансовая карта</h3>
+          <p class="fin-text-muted">Мы видим, где вы сейчас, какие есть сильные стороны и что требует внимания.</p>
+        </div>
+
+        <div class="fin-carousel-slide">
+          <div style="font-family: var(--font-heading); font-size: 3rem; color: rgba(229, 184, 105, 0.15); line-height: 1; margin-bottom: 16px;">04</div>
+          <h3 style="color: var(--color-text-main);">Стратегия</h3>
+          <p class="fin-text-muted">Формируем план: защита, цели, активная корзина доходов, капитал, пассивный доход.</p>
+        </div>
+
+        <div class="fin-carousel-slide">
+          <div style="font-family: var(--font-heading); font-size: 3rem; color: rgba(229, 184, 105, 0.15); line-height: 1; margin-bottom: 16px;">05</div>
+          <h3 style="color: var(--color-text-main);">Пошаговые действия</h3>
+          <p class="fin-text-muted">Вы получаете конкретные рекомендации: что сделать в первую очередь, что изменить, какие решения отложить.</p>
+        </div>
+
+        <div class="fin-carousel-slide">
+          <div style="font-family: var(--font-heading); font-size: 3rem; color: rgba(229, 184, 105, 0.15); line-height: 1; margin-bottom: 16px;">06</div>
+          <h3 style="color: var(--color-text-main);">Сопровождение</h3>
+          <p class="fin-text-muted">При необходимости я помогаю отслеживать движение, корректировать план и поддерживать финансовую дисциплину.</p>
+        </div>
+
+      </div>
+      <button class="fin-carousel-btn next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </section>
+
+  <section class="fin-section fin-container" id="about-section">
+    <div class="reveal">
+      <h2 style="text-align: center;">Обо мне</h2>
+      <p class="fin-text-muted" style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+        Посмотрите короткое видео, чтобы познакомиться со мной лично, узнать о моем подходе к финансам и понять, как мы сможем достичь ваших целей вместе.
+      </p>
+    </div>
+    
+    <div class="reveal delay-2" style="max-width: 900px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-light); box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: var(--color-surface);">
+      <video controls playsinline preload="metadata" style="display: block; width: 100%; height: auto; background: #000;" aria-label="Видео Виктории о подходе к финансовому консультированию">
+        <source src="assets/victoria-intro.mp4" type="video/mp4">
+        Ваш браузер не поддерживает воспроизведение видео.
+      </video>
+    </div>
+  </section>
+
+  <section class="fin-section fin-container" id="services-section">
+    <div class="reveal">
+      <h2 style="text-align: center; max-width: 900px; margin: 0 auto 16px;">Не знаете, какая услуга вам нужна? Начните со своей задачи</h2>
+      <p class="fin-text-muted" style="text-align: center; max-width: 800px; margin: 0 auto;">Выберите карточку, которая ближе всего к вашей ситуации: от первого финансового разбора до годового сопровождения на пути к капиталу, пассивному доходу и финансовой свободе.</p>
+    </div>
+    
+    <div class="fin-carousel-wrapper reveal delay-3">
+      <button class="fin-carousel-btn prev"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="fin-carousel-track">
+        
+        <div class="fin-carousel-slide">
+          <h3 style="color: var(--color-text-main); font-size: 1.4rem;">Ознакомительная встреча</h3>
+          <p class="service-pain">20 минут · когда хочется понять, с чего начать</p>
+          <ul class="service-list"><li>знакомство;</li><li>формулирование задачи;</li><li>определение подходящей услуги;</li><li>без подробного финансового плана.</li></ul>
+          <div class="service-result">Результат: понимание подходящего следующего шага.</div>
+          <a href="#form-section" class="fin-btn service-btn">Обсудить мою ситуацию</a>
+        </div>
+
+        <div class="fin-carousel-slide">
+          <h3 style="color: var(--color-text-main); font-size: 1.4rem;">Диагностика 360°</h3>
+          <p class="service-pain">Когда нужна полная картина финансов</p>
+          <ul class="service-list"><li>встреча 60–90 минут;</li><li>анализ доходов, расходов, кредитов и накоплений;</li><li>определение проблемных зон;</li><li>три приоритетных действия;</li><li>краткое резюме после встречи.</li></ul>
+          <div class="service-price">8 000 ₽</div>
+          <div class="service-result">Результат: финансовая карта и три приоритетных действия.</div>
+          <a href="#form-section" class="fin-btn service-btn">Пройти диагностику</a>
+        </div>
+
+        <div class="fin-carousel-slide">
+          <h3 style="color: var(--color-text-main); font-size: 1.4rem;">Личный финансовый план</h3>
+          <p class="service-pain">Когда цели нужно превратить в цифры</p>
+          <ul class="service-list"><li>финансовая диагностика 360°;</li><li>расчёт резерва;</li><li>цели в цифрах и сроках;</li><li>распределение денежных потоков;</li><li>сценарии достижения целей;</li><li>план формирования капитала;</li><li>итоговый документ и встреча с разбором.</li></ul>
+          <div class="service-price">20 000 ₽</div>
+          <div class="service-result">Результат: пошаговый маршрут к вашим целям.</div>
+          <a href="#form-section" class="fin-btn service-btn">Составить план</a>
+        </div>
+
+        <div class="fin-carousel-slide">
+          <h3 style="color: var(--color-text-main); font-size: 1.4rem;">Расширенная стратегия капитала</h3>
+          <p class="service-pain">Как системно формировать, защищать и использовать капитал?</p>
+          <div class="service-includes">Для клиентов, у которых наведён финансовый порядок, создан резерв, нет критической кредитной нагрузки и остаются средства для регулярных накоплений.</div>
+          <ul class="service-list"><li>расчёт целевого капитала и желаемого пассивного дохода;</li><li>сроки и сценарии регулярного пополнения;</li><li>распределение целей по срокам;</li><li>допустимый уровень риска;</li><li>принципы диверсификации и защиты капитала;</li><li>правила контроля и пересмотра стратегии.</li></ul>
+          <div class="service-price">30 000 ₽</div>
+          <div class="service-result">Результат: расширенная стратегия формирования и защиты капитала.</div>
+          <a href="#form-section" class="fin-btn service-btn">Создать стратегию</a>
+        </div>
+
+        <div class="fin-carousel-slide">
+          <h3 style="color: var(--color-text-main); font-size: 1.4rem;">Персональное сопровождение</h3>
+          <p class="service-pain">Для клиентов, которым важно реализовать план</p>
+          <ul class="service-list"><li>финансовый план;</li><li>регулярные встречи;</li><li>контроль показателей;</li><li>корректировка при изменении обстоятельств;</li><li>поддержка между встречами.</li></ul>
+          <div class="service-price">3 месяца — 50 000 ₽<br>6 месяцев — 80 000 ₽<br>12 месяцев — 150 000 ₽</div>
+          <div class="service-result">Результат: движение к финансовой свободе без хаоса и срывов.</div>
+          <a href="#form-section" class="fin-btn service-btn">Выбрать сопровождение</a>
+        </div>
+
+      </div>
+      <button class="fin-carousel-btn next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+    </div>
+  </section>
+
+  <section class="fin-section fin-container" id="lab-section">
+    <div class="lab-intro reveal">
+      <span class="fin-subtitle">Финансовая лаборатория</span>
+      <h2>Проверьте цифры до принятия решений</h2>
+      <p class="fin-text-muted">Три экспресс-расчёта помогут увидеть ориентиры. Они не заменяют персональный финансовый план, потому что не учитывают все цели, риски и обстоятельства семьи одновременно.</p>
+    </div>
+    <div class="lab-grid reveal delay-1">
+      <article class="lab-card">
+        <h3>Финансовая подушка</h3>
+        <p class="fin-text-muted">Узнайте рекомендуемый резерв и срок его создания.</p>
+        <div class="lab-field"><label for="reserve-expenses">Обязательные расходы в месяц, ₽</label><input class="lab-input" id="reserve-expenses" type="number" min="0" step="1000" value="80000"></div>
+        <div class="lab-field"><label for="reserve-months">Запас, месяцев</label><select class="lab-input" id="reserve-months"><option value="3">3 — стабильный доход</option><option value="6" selected>6 — базовый ориентир</option><option value="9">9 — нестабильный доход</option><option value="12">12 — повышенная защита</option></select></div>
+        <div class="lab-field"><label for="reserve-current">Уже накоплено, ₽</label><input class="lab-input" id="reserve-current" type="number" min="0" step="1000" value="100000"></div>
+        <div class="lab-field"><label for="reserve-saving">Откладываю в месяц, ₽</label><input class="lab-input" id="reserve-saving" type="number" min="0" step="1000" value="30000"></div>
+        <div class="lab-result" aria-live="polite"><span>Рекомендуемый резерв</span><strong id="reserve-target">480 000 ₽</strong><p id="reserve-summary"></p></div>
+      </article>
+
+      <article class="lab-card">
+        <h3>Финансовая цель</h3>
+        <p class="fin-text-muted">Проверьте, достаточно ли текущего темпа накоплений.</p>
+        <div class="lab-field"><label for="goal-cost">Стоимость цели сегодня, ₽</label><input class="lab-input" id="goal-cost" type="number" min="0" step="10000" value="2000000"></div>
+        <div class="lab-field"><label for="goal-current">Уже накоплено, ₽</label><input class="lab-input" id="goal-current" type="number" min="0" step="10000" value="300000"></div>
+        <div class="lab-field"><label for="goal-years">Срок, лет</label><input class="lab-input" id="goal-years" type="number" min="1" max="40" value="5"></div>
+        <div class="lab-field"><label for="goal-inflation">Инфляция, % в год</label><input class="lab-input" id="goal-inflation" type="number" min="0" max="30" step="0.5" value="6"></div>
+        <div class="lab-result" aria-live="polite"><span>Необходимый взнос в месяц</span><strong id="goal-payment">—</strong><p id="goal-summary"></p></div>
+      </article>
+
+      <article class="lab-card">
+        <h3>Симулятор капитала</h3>
+        <p class="fin-text-muted">Посмотрите три сценария без обещания доходности.</p>
+        <div class="lab-field"><label for="capital-start">Стартовый капитал, ₽</label><input class="lab-input" id="capital-start" type="number" min="0" step="10000" value="300000"></div>
+        <div class="lab-field"><label for="capital-payment">Пополнение в месяц, ₽</label><input class="lab-input" id="capital-payment" type="number" min="0" step="1000" value="30000"></div>
+        <div class="lab-field"><label for="capital-years">Срок, лет</label><input class="lab-input" id="capital-years" type="number" min="1" max="40" value="10"></div>
+        <div class="lab-field"><label for="capital-rate">Базовая расчётная доходность, %</label><input class="lab-input" id="capital-rate" type="number" min="0" max="30" step="0.5" value="8"></div>
+        <div class="lab-result" aria-live="polite"><span>Базовый сценарий</span><strong id="capital-result">—</strong><p id="capital-summary"></p></div>
+      </article>
+    </div>
+    <p class="lab-note">Все результаты являются математической моделью, носят информационный характер и не являются индивидуальной инвестиционной рекомендацией. Доходность и сроки не гарантируются.</p>
+    <div class="lab-explanation reveal">
+      <h3>Расчёт показывает ориентир. Финансовый план учитывает вашу жизнь.</h3>
+      <p class="fin-text-muted">Калькулятор рассматривает одну задачу отдельно. Персональный план связывает резерв, кредиты, текущие расходы, семейные обстоятельства и несколько целей с разными сроками. На консультации мы проверяем исходные данные, расставляем приоритеты и выбираем реалистичный порядок действий.</p>
+      <a href="#form-section" class="fin-btn">Получить персональный план</a>
+    </div>
+  </section>
+
+  <!-- Калькулятор -->
+  <section class="fin-section fin-container" id="calculator-section">
+    <div class="calc-wrapper reveal">
+      
+      <!-- Экран старта -->
+      <div id="calc-intro" class="calc-step active" style="text-align: center; padding: 10px 0;">
+        <h2 style="font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 20px;">Калькулятор финансового маршрута</h2>
+        <p style="color: var(--calc-text-muted); font-size: clamp(0.95rem, 2vw, 1.1rem); max-width: 600px; margin: 0 auto 30px; line-height: 1.6;">
+          Ответьте на несколько вопросов и узнайте, где сейчас находятся ваши финансы: хаос, порядок, рост капитала или путь к финансовой свободе.
+        </p>
+        <button id="calc-btn-start" class="fin-btn" style="color: var(--color-bg-base); margin-top: 10px;">Начать расчет</button>
+      </div>
+
+      <!-- Экран вопросов -->
+      <div id="calc-quiz" class="calc-step">
+        <div class="calc-progress-container">
+          <div id="calc-progress-bar" class="calc-progress-bar"></div>
+        </div>
+        <div style="font-size: 0.9rem; color: var(--calc-text-muted); margin-bottom: 12px; font-weight: 500;" id="calc-counter">Вопрос 1 из 12</div>
+        <h3 id="calc-question-text" style="font-size: clamp(1.1rem, 3vw, 1.5rem); margin-bottom: 24px; line-height: 1.4;">Вопрос?</h3>
+        
+        <div id="calc-options">
+          <!-- Генерируется через JS -->
+        </div>
+
+        <div class="calc-nav">
+          <button id="calc-btn-back" class="calc-btn-back">← Назад</button>
+          <button id="calc-btn-next" class="fin-btn" style="margin-top: 0; padding: 12px 24px; display: none;">Далее</button>
+        </div>
+      </div>
+
+      <!-- Экран результатов -->
+      <div id="calc-result" class="calc-step">
+        <div class="calc-result-box">
+          <h3 style="font-size: 1.1rem; color: var(--calc-text-muted);">Ваш финансовый маршрут:</h3>
+          <div class="calc-index-number"><span id="calc-score-display">0</span> <span style="font-size: clamp(1.2rem, 3vw, 2rem); color: var(--calc-text-muted);">из 100</span></div>
+          <h2 id="calc-stage-display" style="font-size: clamp(1.3rem, 3vw, 1.8rem); margin: 10px 0; line-height: 1.3;">Этап</h2>
+          <p id="calc-desc-display" style="color: var(--calc-text-muted); font-size: 0.95rem; line-height: 1.6; max-width: 600px; margin: 0 auto;"></p>
+        </div>
+
+        <div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 12px;">Главные зоны внимания:</h4>
+          <ul id="calc-zones-display" class="calc-zones-list"></ul>
+        </div>
+
+        <div class="calc-form-container">
+          <h4 style="font-size: 1.2rem; margin-bottom: 12px;">Ваш следующий шаг</h4>
+          <p style="color: var(--calc-text-muted); font-size: 0.95rem; margin-bottom: 20px;">
+            Хотите получить не общий расчет, а персональный финансовый маршрут под ваши доходы, цели и жизненную ситуацию? Оставьте контакт — Виктория поможет определить первые шаги.
+          </p>
+          <form id="calcLeadForm" action="https://formsubmit.co/kookueva.vv@gmail.com" method="POST">
+            <input type="hidden" name="_subject" value="Заявка с калькулятора финансового маршрута">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off">
+            <div class="fin-form-group" style="margin-bottom: 20px;">
+              <input type="text" class="fin-input" id="calcName" name="Имя" placeholder="Ваше имя" autocomplete="name" required>
+            </div>
+            <div class="fin-form-group" style="margin-bottom: 20px;">
+              <input type="text" class="fin-input" id="calcContact" name="Контакт" placeholder="Telegram, телефон или email" required>
+            </div>
+            <input type="hidden" id="calcLeadResult" name="Результат калькулятора" value="">
+            <label class="consent-row" for="calcConsent">
+              <input type="checkbox" id="calcConsent" name="Согласие на обработку персональных данных" value="Получено" required>
+              <span>Я соглашаюсь на обработку персональных данных и принимаю <button type="button" class="privacy-link" data-modal="modal-privacy">Политику конфиденциальности</button>.</span>
+            </label>
+            <button type="submit" id="calc-btn-cta" class="fin-btn" style="width: 100%; margin-top: 10px;">Получить персональный разбор</button>
+          </form>
+          <div class="contact-alternative">Или <a href="https://t.me/viktoryproff" target="_blank" rel="noopener">напишите Виктории в Telegram</a></div>
+        </div>
+        <p class="calc-disclaimer">
+          Расчет носит информационный характер и не является индивидуальной инвестиционной рекомендацией.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="fin-section fin-container" id="form-section">
+    <div class="reveal">
+      <h2 style="text-align: center;">Оставить заявку на консультацию</h2>
+      <p class="fin-text-muted" style="text-align: center;">Заполните форму ниже, и я свяжусь с вами для обсуждения деталей.</p>
+    </div>
+    
+    <div class="fin-form-wrapper reveal delay-1" style="max-width: 600px; margin: 40px auto 0;">
+      <form id="contactForm" action="https://formsubmit.co/kookueva.vv@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Новая заявка с сайта финансового советника">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off">
+        <div class="fin-form-group">
+          <input type="text" class="fin-input" id="name" name="Имя" placeholder="Ваше имя" autocomplete="name" required>
+        </div>
+        <div class="fin-form-group">
+          <input type="text" class="fin-input" id="contact" name="Контакт" placeholder="Telegram, телефон или email" required>
+        </div>
+        <div class="fin-form-group">
+          <input type="text" class="fin-input" id="goal" name="Финансовая цель" placeholder="Опишите главную финансовую цель" required>
+        </div>
+        <label class="consent-row" for="contactConsent">
+          <input type="checkbox" id="contactConsent" name="Согласие на обработку персональных данных" value="Получено" required>
+          <span>Я соглашаюсь на обработку персональных данных и принимаю <button type="button" class="privacy-link" data-modal="modal-privacy">Политику конфиденциальности</button>.</span>
+        </label>
+        <button type="submit" class="fin-btn" style="width: 100%;">Отправить</button>
+      </form>
+      <div class="contact-alternative">Или <a href="https://t.me/viktoryproff" target="_blank" rel="noopener">напишите Виктории в Telegram</a></div>
+    </div>
+  </section>
+
+  <footer class="fin-footer fin-container">
+    <p style="color: var(--color-accent); font-family: var(--font-heading); letter-spacing: 1px; margin-bottom: 10px; font-size: 0.9rem;">ФИНАНСОВАЯ ГРАМОТНОСТЬ - ЭТО ПУТЬ К СВОБОДЕ И УВЕРЕННОСТИ!</p>
+    <p style="margin-bottom: 10px;"><button type="button" class="privacy-link" data-modal="modal-privacy">Политика конфиденциальности</button></p>
+    <p class="fin-text-muted" style="font-size: 0.85rem;">© 2026. Все права защищены.</p>
+  </footer>
+
+  <!-- Модальные окна -->
+  <div class="fin-modal-overlay" id="modal-trust">
+    <div class="fin-modal">
+      <button class="fin-modal-close">&times;</button>
+      <div class="fin-modal-content">
+        <h3>Моя экспертиза - это сочетание науки, преподавания и практики</h3>
+        <p class="fin-text-muted">
+          Я кандидат экономических наук и преподаватель ведущего экономического вуза России. Поэтому объясняю финансы не поверхностно, а системно: через логику, цифры, стратегию и реальные жизненные задачи.
+        </p>
+        <br>
+        <p class="fin-text-muted">
+          Моя цель - не просто дать совет, а помочь вам понять финансовые решения и уверенно применять их в жизни.
+        </p>
+        <div style="margin-top: 24px; text-align: center;">
+          <a href="https://yapx.ru/image/d7IIZ" title="Изображение загружено на фотохостинг yapx.ru" target="_blank">
+            <img src="https://i.yapx.ru/d7IIZ.png" alt="Смотреть на фотохостинг сайте yapx.ru" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fin-modal-overlay" id="modal-audience">
+    <div class="fin-modal">
+      <button class="fin-modal-close">&times;</button>
+      <div class="fin-modal-content">
+        <h3>Мои консультации подойдут, если вы:</h3>
+        <ul class="fin-modal-list">
+          <li>хотите понять, куда уходят деньги;</li>
+          <li>имеете доход, но не чувствуете уверенности;</li>
+          <li>хотите создать финансовую подушку;</li>
+          <li>планируете инвестиции, но боитесь ошибиться;</li>
+          <li>думаете о пассивном доходе;</li>
+          <li>хотите накопить на крупную цель;</li>
+          <li>стремитесь к финансовой свободе и процветанию.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="fin-modal-overlay" id="modal-results">
+    <div class="fin-modal">
+      <button class="fin-modal-close">&times;</button>
+      <div class="fin-modal-content">
+        <h3>Что вы получите</h3>
+        <p class="fin-text-muted" style="margin-bottom: 16px;">После работы со мной у вас будет не просто список советов, а понятная финансовая система:</p>
+        <ul class="fin-modal-list">
+          <li>личная финансовая карта;</li>
+          <li>анализ доходов, расходов, долгов и активов;</li>
+          <li>финансовые цели в цифрах;</li>
+          <li>план создания резерва;</li>
+          <li>стратегия увеличения капитала;</li>
+          <li>варианты активной и регулярной корзины доходов после защиты капитала;</li>
+          <li>первые шаги к пассивному доходу.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="fin-modal-overlay" id="modal-services">
+    <div class="fin-modal">
+      <button class="fin-modal-close">&times;</button>
+      <div class="fin-modal-content">
+        <h3>Услуги</h3>
+        
+        <div class="fin-service-item">
+          <h4>Ознакомительная встреча — 20 минут</h4>
+          <p class="fin-text-muted">Знакомство, формулирование задачи и определение подходящей услуги — без подробного финансового плана.</p>
+        </div>
+        
+        <div class="fin-service-item">
+          <h4>Диагностика 360°</h4>
+          <p class="fin-text-muted">Встреча 60–90 минут, анализ финансовой ситуации, проблемные зоны и три приоритетных действия. Стоимость: 8 000 ₽.</p>
+        </div>
+        
+        <div class="fin-service-item">
+          <h4>Личный финансовый план</h4>
+          <p class="fin-text-muted">Диагностика, резерв, цели, денежные потоки, сценарии и план формирования капитала. Стоимость: 20 000 ₽.</p>
+        </div>
+
+        <div class="fin-service-item">
+          <h4>Расширенная стратегия капитала</h4>
+          <p class="fin-text-muted">Системный план формирования, защиты и использования капитала. Стоимость: 30 000 ₽.</p>
+        </div>
+
+        <div class="fin-service-item">
+          <h4>Персональное сопровождение</h4>
+          <p class="fin-text-muted">3 месяца — 50 000 ₽; 6 месяцев — 80 000 ₽; 12 месяцев — 150 000 ₽.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fin-modal-overlay" id="modal-privacy">
+    <div class="fin-modal">
+      <button class="fin-modal-close" aria-label="Закрыть">&times;</button>
+      <div class="fin-modal-content privacy-copy">
+        <h3>Политика обработки персональных данных</h3>
+        <p>Редакция от 15 июля 2026 года.</p>
+
+        <h4>1. Оператор</h4>
+        <p>Оператор персональных данных: Индивидуальный предприниматель Мархаева Виктория Владимировна, ИНН 081401643636. Контактный адрес: <a href="mailto:kookueva.vv@gmail.com" style="color:var(--color-accent)">kookueva.vv@gmail.com</a>.</p>
+
+        <h4>2. Какие данные обрабатываются</h4>
+        <p>При заполнении форм могут обрабатываться имя, номер телефона, адрес электронной почты, имя пользователя в Telegram, сведения о финансовой цели, результат калькулятора, а также техническая информация, передаваемая браузером при обращении к сайту.</p>
+
+        <h4>3. Цели обработки</h4>
+        <ul><li>обработка заявки и обратная связь;</li><li>подготовка и оказание запрошенной консультационной услуги;</li><li>защита форм от автоматического спама;</li><li>выполнение требований законодательства Российской Федерации.</li></ul>
+
+        <h4>4. Основание и способы обработки</h4>
+        <p>Основанием обработки является согласие пользователя, выраженное установкой отметки под формой и отправкой заявки. Обработка может включать сбор, запись, систематизацию, хранение, уточнение, использование, передачу сервисам, обеспечивающим работу формы, блокирование и удаление данных.</p>
+
+        <h4>5. Срок обработки</h4>
+        <p>Данные обрабатываются до достижения целей обработки либо до отзыва согласия, если иной срок не требуется законодательством или договором. Отозвать согласие можно письмом на адрес оператора с темой «Отзыв согласия на обработку персональных данных».</p>
+
+        <h4>6. Сервисы сайта</h4>
+        <p>Для размещения сайта и доставки заявок могут использоваться услуги хостинг-провайдера и сервиса обработки веб-форм FormSubmit. До публикации сайта перечень используемых сервисов и адрес сайта должны быть уточнены. Не следует сообщать через публичную форму паспортные данные, сведения о банковских картах, пароли и иную чувствительную информацию.</p>
+
+        <h4>7. Права пользователя</h4>
+        <p>Пользователь вправе запросить сведения об обработке своих данных, потребовать их уточнения, блокирования или удаления, а также отозвать согласие, направив обращение оператору.</p>
+
+        <h4>8. Защита и изменение политики</h4>
+        <p>Оператор принимает разумные организационные и технические меры для защиты данных. Актуальная редакция политики размещается на странице сайта, где доступна форма сбора персональных данных.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Анимации при появлении
+      const reveals = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { root: null, threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+      reveals.forEach(reveal => revealObserver.observe(reveal));
+
+      // 2. Скролл каруселей
+      document.querySelectorAll('.fin-carousel-wrapper').forEach(wrapper => {
+        const track = wrapper.querySelector('.fin-carousel-track');
+        const prevBtn = wrapper.querySelector('.fin-carousel-btn.prev');
+        const nextBtn = wrapper.querySelector('.fin-carousel-btn.next');
+        if (track && prevBtn && nextBtn) {
+          const scrollAmount = track.offsetWidth > 768 ? 400 : 250;
+          prevBtn.addEventListener('click', () => track.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
+          nextBtn.addEventListener('click', () => track.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
+        }
+      });
+
+      // 3. Модальные окна
+      const navBtns = document.querySelectorAll('[data-modal]');
+      const closeBtns = document.querySelectorAll('.fin-modal-close');
+      const overlays = document.querySelectorAll('.fin-modal-overlay');
+
+      function openModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+      }
+      function closeModal(modal) {
+        modal.classList.remove('active'); document.body.style.overflow = '';
+      }
+      
+      navBtns.forEach(btn => btn.addEventListener('click', () => openModal(btn.getAttribute('data-modal'))));
+      closeBtns.forEach(btn => btn.addEventListener('click', (e) => {
+        const overlay = e.target.closest('.fin-modal-overlay'); if (overlay) closeModal(overlay);
+      }));
+      overlays.forEach(overlay => overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal(overlay);
+      }));
+      
+      // Плавный скролл для якорных ссылок (Кнопка Калькулятора)
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+
+      // 4. Финансовая лаборатория
+      const rub = value => Math.round(Number(value) || 0).toLocaleString('ru-RU') + ' ₽';
+      const num = id => Math.max(0, Number(document.getElementById(id).value) || 0);
+
+      function updateReserve() {
+        const target = num('reserve-expenses') * num('reserve-months');
+        const gap = Math.max(0, target - num('reserve-current'));
+        const saving = num('reserve-saving');
+        document.getElementById('reserve-target').textContent = rub(target);
+        document.getElementById('reserve-summary').textContent = gap === 0
+          ? 'Расчётный ориентир уже достигнут.'
+          : saving > 0 ? `До ориентира не хватает ${rub(gap)}. При текущем темпе — около ${Math.ceil(gap / saving)} мес.` : `До ориентира не хватает ${rub(gap)}. Укажите ежемесячное пополнение.`;
+      }
+
+      function updateGoal() {
+        const years = Math.max(1, num('goal-years'));
+        const futureCost = num('goal-cost') * Math.pow(1 + num('goal-inflation') / 100, years);
+        const gap = Math.max(0, futureCost - num('goal-current'));
+        const payment = gap / (years * 12);
+        document.getElementById('goal-payment').textContent = rub(payment);
+        document.getElementById('goal-summary').textContent = `С учётом заданной инфляции ориентировочная будущая стоимость цели — ${rub(futureCost)}.`;
+      }
+
+      function futureValue(start, monthly, years, annualRate) {
+        const months = years * 12;
+        const rate = annualRate / 100 / 12;
+        if (!rate) return start + monthly * months;
+        return start * Math.pow(1 + rate, months) + monthly * ((Math.pow(1 + rate, months) - 1) / rate);
+      }
+
+      function updateCapital() {
+        const start = num('capital-start');
+        const payment = num('capital-payment');
+        const years = Math.max(1, num('capital-years'));
+        const rate = num('capital-rate');
+        const cautious = futureValue(start, payment, years, Math.max(0, rate - 3));
+        const base = futureValue(start, payment, years, rate);
+        const optimistic = futureValue(start, payment, years, rate + 3);
+        document.getElementById('capital-result').textContent = rub(base);
+        document.getElementById('capital-summary').textContent = `Осторожный сценарий: ${rub(cautious)} · оптимистичный: ${rub(optimistic)}. Налоги, комиссии и инфляция не учтены.`;
+      }
+
+      document.querySelectorAll('#lab-section input, #lab-section select').forEach(control => control.addEventListener('input', () => {
+        updateReserve(); updateGoal(); updateCapital();
+      }));
+      updateReserve(); updateGoal(); updateCapital();
+
+      // 5. Логика калькулятора финансового маршрута
+      const calcData = [
+        { q: "Вы знаете, сколько денег уходит у вас в месяц?", options: [{t:"Да, веду учет доходов и расходов", p:10}, {t:"Примерно понимаю", p:6}, {t:"Иногда смотрю, но системы нет", p:3}, {t:"Нет, деньги уходят незаметно", p:0}] },
+        { q: "Какая часть дохода остается у вас в конце месяца?", options: [{t:"Больше 30%", p:10}, {t:"От 10% до 30%", p:7}, {t:"Меньше 10%", p:3}, {t:"Ничего не остается", p:0}] },
+        { q: "Есть ли у вас финансовая подушка?", options: [{t:"Да, на 6 месяцев и больше", p:10}, {t:"Да, на 3–6 месяцев", p:8}, {t:"Есть небольшие накопления", p:4}, {t:"Нет", p:0}] },
+        { q: "На сколько месяцев вам хватит накоплений без дохода?", options: [{t:"Больше 6 месяцев", p:10}, {t:"3–6 месяцев", p:8}, {t:"1–2 месяца", p:4}, {t:"Меньше месяца", p:0}] },
+        { q: "Есть ли у вас кредиты или долги?", options: [{t:"Нет кредитов", p:10}, {t:"Есть ипотека или кредит, платеж комфортный", p:7}, {t:"Есть несколько кредитов", p:3}, {t:"Кредитная нагрузка давит", p:0}] },
+        { q: "Какая часть дохода уходит на кредиты?", options: [{t:"0%", p:10}, {t:"До 20%", p:8}, {t:"20–40%", p:4}, {t:"Больше 40%", p:0}] },
+        { q: "Есть ли у вас финансовые цели в цифрах?", options: [{t:"Да, знаю сумму и срок", p:10}, {t:"Цели есть, но они не посчитаны", p:5}, {t:"Есть желания, но без конкретики", p:3}, {t:"Нет целей", p:0}] },
+        { q: "Какая цель для вас сейчас главная?", options: [{t:"Навести порядок в деньгах", p:0}, {t:"Создать финансовую подушку", p:0}, {t:"Закрыть кредиты", p:0}, {t:"Накопить на крупную покупку", p:0}, {t:"Начать инвестировать", p:0}, {t:"Создать капитал", p:0}, {t:"Выйти на пассивный доход", p:0}] },
+        { q: "Инвестируете ли вы сейчас?", options: [{t:"Да, регулярно", p:10}, {t:"Иногда", p:6}, {t:"Хочу начать, но не знаю как", p:3}, {t:"Нет", p:0}] },
+        { q: "Есть ли у вас инвестиционная стратегия?", options: [{t:"Да, есть понятный план", p:10}, {t:"Есть активы, но нет системы", p:5}, {t:"Нет стратегии", p:2}, {t:"Не инвестирую", p:0}] },
+        { q: "Есть ли у вас финансовый план Б?", options: [{t:"Да, есть резерв, защита и понятный план действий", p:10}, {t:"Частично", p:5}, {t:"Пока нет", p:0}] },
+        { q: "Что вам сейчас больше всего мешает?", options: [{t:"Нет системы", p:0}, {t:"Не понимаю, куда уходят деньги", p:0}, {t:"Боюсь инвестировать", p:0}, {t:"Не хватает дохода", p:0}, {t:"Много обязательств", p:0}, {t:"Не знаю, с чего начать", p:0}, {t:"Хочу расти, но нет стратегии", p:0}] }
+      ];
+
+      const calcResults = [
+        { max: 30, stage: "Финансы требуют порядка", text: "Ваши финансы сейчас находятся в зоне неопределенности. Возможно, деньги приходят, но быстро расходятся, нет четкой системы учета, подушки безопасности или понятного плана. Главный шаг сейчас — навести порядок в доходах, расходах и обязательствах.", zones: ["учет расходов", "финансовая подушка", "кредитная нагрузка", "первые финансовые цели"], cta: "Получить план наведения порядка" },
+        { max: 55, stage: "База есть, но системы не хватает", text: "У вас уже есть основа для финансовой стабильности, но пока деньги не работают как единая система. Возможно, часть расходов понятна, есть отдельные накопления или цели, но не хватает четкого маршрута к капиталу.", zones: ["структура бюджета", "расчет целей", "создание резерва", "первые шаги к инвестициям"], cta: "Разобрать мой финансовый маршрут" },
+        { max: 75, stage: "Финансы под контролем", text: "У вас уже есть хороший уровень финансового порядка. Доходы и расходы в целом понятны, есть база для дальнейшего роста. Следующий шаг — перейти от стабильности к формированию капитала и долгосрочной стратегии.", zones: ["инвестиционная стратегия", "цели в цифрах", "защита капитала", "долгосрочный финансовый план"], cta: "Построить стратегию капитала" },
+        { max: 90, stage: "Рост капитала", text: "Вы уже на этапе роста капитала. У вас есть финансовая база, цели и, возможно, инвестиции. Сейчас важно проверить, насколько ваша стратегия соответствует вашим целям, срокам и уровню риска.", zones: ["эффективность инвестиционного портфеля", "диверсификация", "пассивный доход", "защита от рисков"], cta: "Проверить инвестиционный маршрут" },
+        { max: 100, stage: "Путь к финансовой свободе", text: "Ваши финансы находятся на сильном уровне. Вы уже мыслите стратегически, управляете капиталом и можете двигаться к финансовой свободе. Главная задача — сохранить, приумножить и грамотно распределить активы.", zones: ["управление капиталом", "пассивный доход", "налоговая и правовая структура", "долгосрочная стратегия семьи"], cta: "Получить стратегическую консультацию" }
+      ];
+
+      let currentStep = 0;
+      let userAnswers = new Array(calcData.length).fill(null);
+      
+      const elIntro = document.getElementById('calc-intro');
+      const elQuiz = document.getElementById('calc-quiz');
+      const elResult = document.getElementById('calc-result');
+      const elQuestion = document.getElementById('calc-question-text');
+      const elOptions = document.getElementById('calc-options');
+      const elCounter = document.getElementById('calc-counter');
+      const elProgress = document.getElementById('calc-progress-bar');
+      const btnBack = document.getElementById('calc-btn-back');
+      
+      document.getElementById('calc-btn-start').addEventListener('click', () => {
+        elIntro.classList.remove('active'); elQuiz.classList.add('active'); renderQuestion();
+      });
+
+      btnBack.addEventListener('click', () => {
+        if(currentStep > 0) { currentStep--; renderQuestion(); }
+      });
+
+      function renderQuestion() {
+        const data = calcData[currentStep];
+        elCounter.innerText = `Вопрос ${currentStep + 1} из ${calcData.length}`;
+        elProgress.style.width = `${((currentStep + 1) / calcData.length) * 100}%`;
+        elQuestion.innerText = data.q;
+        elOptions.innerHTML = '';
+        
+        btnBack.style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+
+        data.options.forEach((opt, index) => {
+          const div = document.createElement('div'); div.className = 'calc-option';
+          if(userAnswers[currentStep] !== null && userAnswers[currentStep].index === index) div.classList.add('selected');
+          div.innerText = opt.t;
+          div.addEventListener('click', () => handleSelect(index, opt.p));
+          elOptions.appendChild(div);
+        });
+      }
+
+      function handleSelect(optIndex, points) {
+        userAnswers[currentStep] = { index: optIndex, points: points };
+        Array.from(elOptions.children).forEach((c, i) => c.classList.toggle('selected', i === optIndex));
+        
+        setTimeout(() => {
+          if(currentStep < calcData.length - 1) { currentStep++; renderQuestion(); }
+          else { showResults(); }
+        }, 350);
+      }
+
+      function showResults() {
+        elQuiz.classList.remove('active'); elResult.classList.add('active');
+        
+        let totalScore = 0;
+        userAnswers.forEach(ans => { if(ans) totalScore += ans.points; });
+        
+        let resultObj = calcResults[calcResults.length - 1];
+        for(let res of calcResults) { if(totalScore <= res.max) { resultObj = res; break; } }
+
+        let currentNum = 0;
+        const displayScore = document.getElementById('calc-score-display');
+        const interval = setInterval(() => {
+          if(currentNum >= totalScore) { displayScore.innerText = totalScore; clearInterval(interval); }
+          else { currentNum += Math.ceil(totalScore/20) || 1; displayScore.innerText = currentNum > totalScore ? totalScore : currentNum; }
+        }, 30);
+
+        document.getElementById('calc-stage-display').innerText = `Вы на этапе: ${resultObj.stage}`;
+        document.getElementById('calc-desc-display').innerText = resultObj.text;
+        document.getElementById('calcLeadResult').value = `${totalScore} из 100 — ${resultObj.stage}`;
+        
+        const ulZones = document.getElementById('calc-zones-display'); ulZones.innerHTML = '';
+        resultObj.zones.forEach(z => { const li = document.createElement('li'); li.innerText = z; ulZones.appendChild(li); });
+        document.getElementById('calc-btn-cta').innerText = resultObj.cta;
+      }
+
+    });
+  </script>
+</body>
+</html>
