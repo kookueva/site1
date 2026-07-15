@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Финансовая грамотность с нуля</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="site-files/css2" rel="stylesheet">
   
   <style>
     /* =========================================
@@ -270,6 +269,13 @@
     .fin-service-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
     .fin-service-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
     .fin-service-item h4 { color: var(--color-accent); margin-bottom: 8px; font-size: 1.1rem; }
+    .fin-service-link {
+      display: inline-flex; align-items: center; gap: 8px; background: none; border: none;
+      color: var(--color-accent); font-family: var(--font-heading); font-size: 1.1rem;
+      font-weight: 700; text-align: left; cursor: pointer; padding: 0; margin-bottom: 8px;
+    }
+    .fin-service-link::after { content: '→'; transition: transform .25s ease; }
+    .fin-service-link:hover::after, .fin-service-link:focus-visible::after { transform: translateX(4px); }
 
     /* =========================================
        SECTIONS
@@ -518,7 +524,7 @@
   </header>
 
   <section class="fin-section fin-hero fin-container">
-    <div class="fin-hero-content reveal">
+    <div class="fin-hero-content reveal active">
       <span class="fin-subtitle">Знания - План - Дисциплина - Свобода</span>
       <h1>От финансового порядка — к уверенности и капиталу</h1>
       <p class="fin-text-muted" style="max-width: 600px; margin-bottom: 30px;">
@@ -527,25 +533,25 @@
 
       <div class="fin-basics-list">
         <div class="fin-basic-item">
-          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
           <div>
             <div class="fin-basic-title">Кандидат экономических наук</div>
           </div>
         </div>
         <div class="fin-basic-item">
-          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path></svg>
           <div>
             <div class="fin-basic-title">Преподаватель, доцент РЭУ им. Г. В. Плеханова</div>
           </div>
         </div>
         <div class="fin-basic-item">
-          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
           <div>
             <div class="fin-basic-title">Финансовый советник</div>
           </div>
         </div>
         <div class="fin-basic-item">
-          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <svg class="fin-basic-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
           <div>
             <div class="fin-basic-title">Практический подход без сложных терминов</div>
           </div>
@@ -558,22 +564,21 @@
       </div>
     </div>
 
-    <div class="fin-hero-visual reveal delay-2">
+    <div class="fin-hero-visual reveal delay-2 active">
       <a href="https://yapx.ru/image/d7GrD" title="Изображение загружено на фотохостинг yapx.ru" target="_blank" style="display: block; width: 100%; max-width: 450px; margin: 0 auto;">
-        <img src="https://i.yapx.ru/d7GrD.png" alt="Смотреть на фотохостинг сайте yapx.ru" 
-             style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 40px rgba(229, 184, 105, 0.15); transition: transform 0.4s ease;">
+        <img src="site-files/d7GrD.png" alt="Виктория — финансовый советник" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 40px rgba(229, 184, 105, 0.15); transition: transform 0.4s ease;">
       </a>
     </div>
   </section>
 
   <section class="fin-section fin-container">
-    <div class="reveal">
+    <div class="reveal active">
       <h2 style="text-align: center;">Как проходит работа со мной</h2>
       <p class="fin-text-muted" style="text-align: center; max-width: 800px; margin: 0 auto;">Вы получаете не общие советы, а понятную систему действий: что делать сейчас, что изменить, куда двигаться и как контролировать результат.</p>
     </div>
     
-    <div class="fin-carousel-wrapper reveal delay-2">
-      <button class="fin-carousel-btn prev"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <div class="fin-carousel-wrapper reveal delay-2 active">
+      <button class="fin-carousel-btn prev"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg></button>
       <div class="fin-carousel-track">
         
         <div class="fin-carousel-slide">
@@ -613,20 +618,20 @@
         </div>
 
       </div>
-      <button class="fin-carousel-btn next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+      <button class="fin-carousel-btn next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg></button>
     </div>
   </section>
 
   <section class="fin-section fin-container" id="about-section">
-    <div class="reveal">
+    <div class="reveal active">
       <h2 style="text-align: center;">Обо мне</h2>
       <p class="fin-text-muted" style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
         Посмотрите короткое видео, чтобы познакомиться со мной лично, узнать о моем подходе к финансам и понять, как мы сможем достичь ваших целей вместе.
       </p>
     </div>
     
-    <div class="reveal delay-2" style="max-width: 900px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-light); box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: var(--color-surface);">
-      <video controls playsinline preload="metadata" style="display: block; width: 100%; height: auto; background: #000;" aria-label="Видео Виктории о подходе к финансовому консультированию">
+    <div class="reveal delay-2 active" style="max-width: 900px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 1px solid var(--border-light); box-shadow: 0 20px 50px rgba(0,0,0,0.5); background: var(--color-surface);">
+      <video controls="" playsinline="" preload="metadata" style="display: block; width: 100%; height: auto; background: #000;" aria-label="Видео Виктории о подходе к финансовому консультированию">
         <source src="assets/victoria-intro.mp4" type="video/mp4">
         Ваш браузер не поддерживает воспроизведение видео.
       </video>
@@ -640,7 +645,7 @@
     </div>
     
     <div class="fin-carousel-wrapper reveal delay-3">
-      <button class="fin-carousel-btn prev"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <button class="fin-carousel-btn prev"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"></path></svg></button>
       <div class="fin-carousel-track">
         
         <div class="fin-carousel-slide">
@@ -689,7 +694,7 @@
         </div>
 
       </div>
-      <button class="fin-carousel-btn next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+      <button class="fin-carousel-btn next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"></path></svg></button>
     </div>
   </section>
 
@@ -704,10 +709,10 @@
         <h3>Финансовая подушка</h3>
         <p class="fin-text-muted">Узнайте рекомендуемый резерв и срок его создания.</p>
         <div class="lab-field"><label for="reserve-expenses">Обязательные расходы в месяц, ₽</label><input class="lab-input" id="reserve-expenses" type="number" min="0" step="1000" value="80000"></div>
-        <div class="lab-field"><label for="reserve-months">Запас, месяцев</label><select class="lab-input" id="reserve-months"><option value="3">3 — стабильный доход</option><option value="6" selected>6 — базовый ориентир</option><option value="9">9 — нестабильный доход</option><option value="12">12 — повышенная защита</option></select></div>
+        <div class="lab-field"><label for="reserve-months">Запас, месяцев</label><select class="lab-input" id="reserve-months"><option value="3">3 — стабильный доход</option><option value="6" selected="">6 — базовый ориентир</option><option value="9">9 — нестабильный доход</option><option value="12">12 — повышенная защита</option></select></div>
         <div class="lab-field"><label for="reserve-current">Уже накоплено, ₽</label><input class="lab-input" id="reserve-current" type="number" min="0" step="1000" value="100000"></div>
         <div class="lab-field"><label for="reserve-saving">Откладываю в месяц, ₽</label><input class="lab-input" id="reserve-saving" type="number" min="0" step="1000" value="30000"></div>
-        <div class="lab-result" aria-live="polite"><span>Рекомендуемый резерв</span><strong id="reserve-target">480 000 ₽</strong><p id="reserve-summary"></p></div>
+        <div class="lab-result" aria-live="polite"><span>Рекомендуемый резерв</span><strong id="reserve-target">480&nbsp;000 ₽</strong><p id="reserve-summary">До ориентира не хватает 380&nbsp;000 ₽. При текущем темпе — около 13 мес.</p></div>
       </article>
 
       <article class="lab-card">
@@ -717,7 +722,7 @@
         <div class="lab-field"><label for="goal-current">Уже накоплено, ₽</label><input class="lab-input" id="goal-current" type="number" min="0" step="10000" value="300000"></div>
         <div class="lab-field"><label for="goal-years">Срок, лет</label><input class="lab-input" id="goal-years" type="number" min="1" max="40" value="5"></div>
         <div class="lab-field"><label for="goal-inflation">Инфляция, % в год</label><input class="lab-input" id="goal-inflation" type="number" min="0" max="30" step="0.5" value="6"></div>
-        <div class="lab-result" aria-live="polite"><span>Необходимый взнос в месяц</span><strong id="goal-payment">—</strong><p id="goal-summary"></p></div>
+        <div class="lab-result" aria-live="polite"><span>Необходимый взнос в месяц</span><strong id="goal-payment">39&nbsp;608 ₽</strong><p id="goal-summary">С учётом заданной инфляции ориентировочная будущая стоимость цели — 2&nbsp;676&nbsp;451 ₽.</p></div>
       </article>
 
       <article class="lab-card">
@@ -727,7 +732,7 @@
         <div class="lab-field"><label for="capital-payment">Пополнение в месяц, ₽</label><input class="lab-input" id="capital-payment" type="number" min="0" step="1000" value="30000"></div>
         <div class="lab-field"><label for="capital-years">Срок, лет</label><input class="lab-input" id="capital-years" type="number" min="1" max="40" value="10"></div>
         <div class="lab-field"><label for="capital-rate">Базовая расчётная доходность, %</label><input class="lab-input" id="capital-rate" type="number" min="0" max="30" step="0.5" value="8"></div>
-        <div class="lab-result" aria-live="polite"><span>Базовый сценарий</span><strong id="capital-result">—</strong><p id="capital-summary"></p></div>
+        <div class="lab-result" aria-live="polite"><span>Базовый сценарий</span><strong id="capital-result">6&nbsp;154&nbsp;273 ₽</strong><p id="capital-summary">Осторожный сценарий: 5&nbsp;152&nbsp;571 ₽ · оптимистичный: 7&nbsp;406&nbsp;689 ₽. Налоги, комиссии и инфляция не учтены.</p></div>
       </article>
     </div>
     <p class="lab-note">Все результаты являются математической моделью, носят информационный характер и не являются индивидуальной инвестиционной рекомендацией. Доходность и сроки не гарантируются.</p>
@@ -794,14 +799,14 @@
             <input type="hidden" name="_captcha" value="false">
             <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off">
             <div class="fin-form-group" style="margin-bottom: 20px;">
-              <input type="text" class="fin-input" id="calcName" name="Имя" placeholder="Ваше имя" autocomplete="name" required>
+              <input type="text" class="fin-input" id="calcName" name="Имя" placeholder="Ваше имя" autocomplete="name" required="">
             </div>
             <div class="fin-form-group" style="margin-bottom: 20px;">
-              <input type="text" class="fin-input" id="calcContact" name="Контакт" placeholder="Telegram, телефон или email" required>
+              <input type="text" class="fin-input" id="calcContact" name="Контакт" placeholder="Telegram, телефон или email" required="">
             </div>
             <input type="hidden" id="calcLeadResult" name="Результат калькулятора" value="">
             <label class="consent-row" for="calcConsent">
-              <input type="checkbox" id="calcConsent" name="Согласие на обработку персональных данных" value="Получено" required>
+              <input type="checkbox" id="calcConsent" name="Согласие на обработку персональных данных" value="Получено" required="">
               <span>Я соглашаюсь на обработку персональных данных и принимаю <button type="button" class="privacy-link" data-modal="modal-privacy">Политику конфиденциальности</button>.</span>
             </label>
             <button type="submit" id="calc-btn-cta" class="fin-btn" style="width: 100%; margin-top: 10px;">Получить персональный разбор</button>
@@ -829,16 +834,16 @@
         <input type="hidden" name="_captcha" value="false">
         <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off">
         <div class="fin-form-group">
-          <input type="text" class="fin-input" id="name" name="Имя" placeholder="Ваше имя" autocomplete="name" required>
+          <input type="text" class="fin-input" id="name" name="Имя" placeholder="Ваше имя" autocomplete="name" required="">
         </div>
         <div class="fin-form-group">
-          <input type="text" class="fin-input" id="contact" name="Контакт" placeholder="Telegram, телефон или email" required>
+          <input type="text" class="fin-input" id="contact" name="Контакт" placeholder="Telegram, телефон или email" required="">
         </div>
         <div class="fin-form-group">
-          <input type="text" class="fin-input" id="goal" name="Финансовая цель" placeholder="Опишите главную финансовую цель" required>
+          <input type="text" class="fin-input" id="goal" name="Финансовая цель" placeholder="Опишите главную финансовую цель" required="">
         </div>
         <label class="consent-row" for="contactConsent">
-          <input type="checkbox" id="contactConsent" name="Согласие на обработку персональных данных" value="Получено" required>
+          <input type="checkbox" id="contactConsent" name="Согласие на обработку персональных данных" value="Получено" required="">
           <span>Я соглашаюсь на обработку персональных данных и принимаю <button type="button" class="privacy-link" data-modal="modal-privacy">Политику конфиденциальности</button>.</span>
         </label>
         <button type="submit" class="fin-btn" style="width: 100%;">Отправить</button>
@@ -856,7 +861,7 @@
   <!-- Модальные окна -->
   <div class="fin-modal-overlay" id="modal-trust">
     <div class="fin-modal">
-      <button class="fin-modal-close">&times;</button>
+      <button class="fin-modal-close">×</button>
       <div class="fin-modal-content">
         <h3>Моя экспертиза - это сочетание науки, преподавания и практики</h3>
         <p class="fin-text-muted">
@@ -868,7 +873,7 @@
         </p>
         <div style="margin-top: 24px; text-align: center;">
           <a href="https://yapx.ru/image/d7IIZ" title="Изображение загружено на фотохостинг yapx.ru" target="_blank">
-            <img src="https://i.yapx.ru/d7IIZ.png" alt="Смотреть на фотохостинг сайте yapx.ru" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+            <img src="site-files/d7IIZ.png" alt="Дипломы и квалификации Виктории" style="max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
           </a>
         </div>
       </div>
@@ -877,7 +882,7 @@
 
   <div class="fin-modal-overlay" id="modal-audience">
     <div class="fin-modal">
-      <button class="fin-modal-close">&times;</button>
+      <button class="fin-modal-close">×</button>
       <div class="fin-modal-content">
         <h3>Мои консультации подойдут, если вы:</h3>
         <ul class="fin-modal-list">
@@ -895,7 +900,7 @@
 
   <div class="fin-modal-overlay" id="modal-results">
     <div class="fin-modal">
-      <button class="fin-modal-close">&times;</button>
+      <button class="fin-modal-close">×</button>
       <div class="fin-modal-content">
         <h3>Что вы получите</h3>
         <p class="fin-text-muted" style="margin-bottom: 16px;">После работы со мной у вас будет не просто список советов, а понятная финансовая система:</p>
@@ -914,32 +919,32 @@
 
   <div class="fin-modal-overlay" id="modal-services">
     <div class="fin-modal">
-      <button class="fin-modal-close">&times;</button>
+      <button class="fin-modal-close">×</button>
       <div class="fin-modal-content">
         <h3>Услуги</h3>
         
         <div class="fin-service-item">
-          <h4>Ознакомительная встреча — 20 минут</h4>
+          <button type="button" class="fin-service-link" data-service-index="0">Ознакомительная встреча — 20 минут</button>
           <p class="fin-text-muted">Знакомство, формулирование задачи и определение подходящей услуги — без подробного финансового плана.</p>
         </div>
         
         <div class="fin-service-item">
-          <h4>Диагностика 360°</h4>
+          <button type="button" class="fin-service-link" data-service-index="1">Диагностика 360°</button>
           <p class="fin-text-muted">Встреча 60–90 минут, анализ финансовой ситуации, проблемные зоны и три приоритетных действия. Стоимость: 8 000 ₽.</p>
         </div>
         
         <div class="fin-service-item">
-          <h4>Личный финансовый план</h4>
+          <button type="button" class="fin-service-link" data-service-index="2">Личный финансовый план</button>
           <p class="fin-text-muted">Диагностика, резерв, цели, денежные потоки, сценарии и план формирования капитала. Стоимость: 20 000 ₽.</p>
         </div>
 
         <div class="fin-service-item">
-          <h4>Расширенная стратегия капитала</h4>
+          <button type="button" class="fin-service-link" data-service-index="3">Расширенная стратегия капитала</button>
           <p class="fin-text-muted">Системный план формирования, защиты и использования капитала. Стоимость: 30 000 ₽.</p>
         </div>
 
         <div class="fin-service-item">
-          <h4>Персональное сопровождение</h4>
+          <button type="button" class="fin-service-link" data-service-index="4">Персональное сопровождение</button>
           <p class="fin-text-muted">3 месяца — 50 000 ₽; 6 месяцев — 80 000 ₽; 12 месяцев — 150 000 ₽.</p>
         </div>
       </div>
@@ -948,7 +953,7 @@
 
   <div class="fin-modal-overlay" id="modal-privacy">
     <div class="fin-modal">
-      <button class="fin-modal-close" aria-label="Закрыть">&times;</button>
+      <button class="fin-modal-close" aria-label="Закрыть">×</button>
       <div class="fin-modal-content privacy-copy">
         <h3>Политика обработки персональных данных</h3>
         <p>Редакция от 15 июля 2026 года.</p>
@@ -1026,6 +1031,23 @@
       overlays.forEach(overlay => overlay.addEventListener('click', (e) => {
         if (e.target === overlay) closeModal(overlay);
       }));
+
+      // Переход из меню «Услуги» к выбранной карточке карусели
+      document.querySelectorAll('[data-service-index]').forEach(link => {
+        link.addEventListener('click', () => {
+          const index = Number(link.getAttribute('data-service-index'));
+          const section = document.getElementById('services-section');
+          const track = section?.querySelector('.fin-carousel-track');
+          const card = track?.querySelectorAll('.fin-carousel-slide')[index];
+          const modal = link.closest('.fin-modal-overlay');
+          if (modal) closeModal(modal);
+          if (!section || !track || !card) return;
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.setTimeout(() => {
+            track.scrollTo({ left: card.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+          }, 350);
+        });
+      });
       
       // Плавный скролл для якорных ссылок (Кнопка Калькулятора)
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1184,5 +1206,6 @@
 
     });
   </script>
-</body>
-</html>
+
+
+</body></html>
